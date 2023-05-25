@@ -1,19 +1,20 @@
-package bank.management.system;
+package Classes.DatabaseConnection;
 
 import java.sql.*;
 import java.sql.DriverManager;
 
-public class Conn {
+public class ConnectionDB {
 
     Connection c=null;
     Statement s;
-    public Conn(){
+    public ConnectionDB(){
         try{
             //Class.forName("com.mysql.cj.jdbc.Driver");
-            c=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankmanagementsystem2","root","renatop");
+            c=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankmanagementsystem","root","renatop");
             s=c.createStatement();
-          //  ResultSet rs=s.executeQuery("select * from signup");
-          //  System.out.println(ResultSet.);
+
+            //  ResultSet rs=s.executeQuery("select * from signup");
+            //  System.out.println(ResultSet.);
             if(c!=null)
             {
                 System.out.println("Connected to DB");
@@ -26,7 +27,7 @@ public class Conn {
     }
 
     public static void main(String[] args) {
-        Conn Conexiune =new Conn();
+        bank.management.system.Conn Conexiune =new bank.management.system.Conn();
 
     }
 }

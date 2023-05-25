@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Customer {
     private String Name;
-    private String Father_name;
+    private String id;
     private String Data;
     private String Gender;
     private String Marital;
@@ -14,9 +14,9 @@ public class Customer {
     private String State;
     private ArrayList<Account> Accounts;
 
-    public Customer(String name, String father_name, String data, String gender, String marital, String address, String city, String pin, String state) {
+    public Customer(String name, String idd, String data, String gender, String marital, String address, String city, String pin, String state) {
         Name = name;
-        Father_name = father_name;
+        id = idd;
         Data = data;
         Gender = gender;
         Marital = marital;
@@ -24,15 +24,16 @@ public class Customer {
         City = city;
         Pin = pin;
         State = state;
-        Accounts = new ArrayList<>();
+        Accounts = new ArrayList<Account>();
     }
+    public Customer(){}
 
     public String getName() {
         return Name;
     }
 
-    public String getFather_name() {
-        return Father_name;
+    public String getId() {
+        return id;
     }
 
     public String getData() {
@@ -77,7 +78,7 @@ public class Customer {
     }
     public void  addAccount(int id, String type)
     {
-        Account cont= new Account(id,0,type);
+        Account cont= new Account(id,type);
         Accounts.add(cont);
 
     }
@@ -90,10 +91,14 @@ public class Customer {
         {
             output+=conturi.get(i).getAccountNumber()+", ";
         }
-        output = output.substring(0, output.length() - 2);
+        if(output!="")
+        {
+            output = output.substring(0, output.length() - 2);
+        }
+
         return "Customer{" +
                 "Name='" + Name + '\'' +
-                ", Father_name='" + Father_name + '\'' +
+                ", ID='" + id + '\'' +
                 ", Data='" + Data + '\'' +
                 ", Gender='" + Gender + '\'' +
                 ", Marital='" + Marital + '\'' +
@@ -104,13 +109,30 @@ public class Customer {
                 ", Accounts=" + output +
                 '}';
     }
+    public String displayAccounts()
+    {
+        ArrayList<Account> conturi= getAccounts();
+        String output="";
+        for(int i=0;i<conturi.size();i++)
+        {
+            output+="Contul nr. "+i+" este urmatorul:\n";
+            output+="-------------------------------\n";
+            output+=conturi.get(i).toString();
+            output+="-------------------------------\n";
+        }
+        return output;
+    }
 
+    public void addAccount(Account account)
+    {
+        Accounts.add(account);
+    }
     public void setName(String name) {
         Name = name;
     }
 
-    public void setFather_name(String father_name) {
-        Father_name = father_name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setData(String data) {
@@ -145,19 +167,28 @@ public class Customer {
         Accounts = accounts;
     }
 
-    public void depositMoney(int idCont)
+    public void depositMoney(int idCont,int amount)
     {
         for (Account account:Accounts)
         {
             if(account.getAccountNumber()==idCont)
             {
-                Transaction transaction=new Transaction(43228638,1000,"Deposit");
-                account.addTransaction(transaction);
-                System.out.println(account.toString());
+                account.getBankCard().depositMoney(1000);
+                System.out.println("You deposited "+amount+" in your Bank Account\n");
             }
         }
 
-
+    }
+    public void withdrawlMoney(int idCont,int amount)
+    {
+        for (Account account:Accounts)
+        {
+            if(account.getAccountNumber()==idCont)
+            {
+                account.getBankCard().withdrawlMoney(900);
+                System.out.println("You deposited "+amount+" in your Bank Account\n");
+            }
+        }
 
     }
 }

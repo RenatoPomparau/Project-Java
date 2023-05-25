@@ -1,0 +1,89 @@
+create schema bankmanagementsystem2;
+use bankmanagementsystem
+-- User table
+CREATE TABLE Customer (
+  customer_id INT PRIMARY KEY,
+  name VARCHAR(50),
+  Date VARCHAR(50),
+  gender VARCHAR(50),
+   marital VARCHAR(50),
+	address VARCHAR(50),
+   city VARCHAR(50),
+   pin VARCHAR(50),
+   state VARCHAR(50)
+);
+
+-- BankAccount table
+CREATE TABLE Account (
+  account_number INT PRIMARY KEY,
+  user_id INT,
+  account_type VARCHAR(20),
+  FOREIGN KEY (user_id) REFERENCES Customer(customer_id)
+);
+
+CREATE TABLE Card (
+  card_number INT PRIMARY KEY,
+  user_id INT,
+  acc_number INT,
+  card_holder_name VARCHAR(20),
+  expire_date DATE,
+  security_code INT,
+  balance double,
+  FOREIGN KEY (user_id) REFERENCES Customer(customer_id),
+FOREIGN KEY (acc_number) REFERENCES Account(account_number)
+);
+
+drop table card;
+-- Transaction table
+
+CREATE TABLE Transaction (
+  transaction_id INT PRIMARY KEY,
+  card_id INT,
+  amount double,
+  transaction_date DATE,
+  transaction_type VARCHAR(20),
+  -- Additional transaction information columns
+  FOREIGN KEY (card_id) REFERENCES Card(card_number)
+);
+
+CREATE TABLE Savings (
+  card_number INT PRIMARY KEY,
+  interest_rate double,
+  percent_withdrawl double,
+  -- Additional Savings card information columns
+  FOREIGN KEY (card_number) REFERENCES Card(card_number)
+  -- UNIQUE INDEX idx_card_id (card_id)
+);
+
+-- Credit table
+CREATE TABLE Credit (
+  card_number INT PRIMARY KEY,
+  tax_percent double,
+  left_to_pay double,
+  credit_limit double,
+  FOREIGN KEY (card_number) REFERENCES Card(card_number)
+
+);
+
+-- Debit table
+CREATE TABLE Debit (
+  card_number INT PRIMARY KEY,
+  FOREIGN KEY (card_number) REFERENCES Card(card_number)
+);
+
+CREATE TABLE Employee (
+  name varchar(20) primary key,
+  position varchar(20)
+);
+
+select * from transaction;
+select * from account;
+
+select * from transaction;
+select * from account;
+delete  from account;
+
+rollback
+
+
+

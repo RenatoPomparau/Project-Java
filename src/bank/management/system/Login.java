@@ -3,6 +3,7 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener {
     JButton login, up,clear;
@@ -80,11 +81,26 @@ public class Login extends JFrame implements ActionListener {
         textCard2.setText("");
     }else if (e.getSource()==up)
     {
-
+        setVisible(false);
+        new SignUpOne().setVisible(true);
     }
     else if (e.getSource()==login)
     {
-
+        Conn conn=new Conn();
+        String cardnumber= textCard.getText();
+        String pinnumber=textCard2.getText();
+        String query= "select * from login where cardnumber ='"+cardnumber+"' and pin ='"+pinnumber+"'";
+        try{
+            ResultSet rs= conn.s.executeQuery(query);
+            if(rs.next()){
+                setVisible(false);
+                new Transactions(pinnumber).setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Incorect credentials");
+            }
+        } catch (Exception ex){
+            System.out.println(ex);}
     }
     }
     public static void main(String[] args) {

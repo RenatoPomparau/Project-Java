@@ -1,36 +1,50 @@
 package Classes;
+import Classes.Cards.Card;
+import Classes.Cards.Credit;
+import Classes.Cards.Debit;
+import Classes.Cards.Savings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Account {
     private int accountNumber;
-    private double balance;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    private int user_id;
     private String accountType;
-    private ArrayList<Transaction> transactions;
+    private Card BankCard;
 
-    public Account(int accountNumber, double balance, String accountType) {
+    public Account(int accountNumber, String accountType) {
         this.accountNumber = accountNumber;
-        this.balance = balance;
         this.accountType = accountType;
-        this.transactions = new ArrayList<>();
+
+
+
+
+    }
+    public Account(){}
+    public Account(int accountNumber,int user_id, String accountType) {
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.user_id=user_id;
+    }
+    public Card getBankCard() {
+        return BankCard;
     }
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
-
-    public ArrayList<Transaction> getTransactions() {
-        return transactions;
+    public void setBankCard(Card bankCard) {
+        BankCard = bankCard;
     }
 
     public int getAccountNumber() {
         return accountNumber;
     }
 
-    public double getBalance() {
-        return balance;
-    }
 
     public String getAccountType() {
         return accountType;
@@ -40,32 +54,14 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-
-    @Override
-    public String toString() {
-        ArrayList<Transaction> transactions1= getTransactions();
-        String output="";
-        for(int i=0;i<transactions1.size();i++)
-        {
-            output+="("+transactions1.get(i).getTransactionId()+", "+transactions1.get(i).getAmount()+", "+transactions1.get(i).getDate()+"), ";
-        }
-        output = output.substring(0, output.length() - 2);
-        return "Account{" +
-                "accountNumber=" + accountNumber +
-                ", balance=" + balance +
-                ", accountType='" + accountType + '\'' +
-                ", transactions=" + output +
-                '}';
+    public String toString(){
+        String output="accountNumber: " + this.accountNumber + "\naccountType: " + this.accountType +
+                "\nCard: "+this.BankCard.toString()+"\n";
+        return output;
     }
 
-    public void setTransactions(ArrayList<Transaction> transactions) {
-        this.transactions = transactions;
-    }
+
 }
