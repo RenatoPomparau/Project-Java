@@ -1,4 +1,4 @@
-import Classes.Service.ServiceClass;
+import Model.Service.ServiceClass;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -52,9 +52,7 @@ public class Main {
                 case 8:
                     Service.PrintAccounts();
                     break;
-                case 9:
-                    Service.CreateAccount();
-                    break;
+
 
 ///dispaly all transaction/ all clients , all cards etc
 
